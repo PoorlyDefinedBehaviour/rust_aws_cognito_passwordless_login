@@ -1,0 +1,11 @@
+[package]
+name = "verify_auth_challenge"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+lambda_runtime = "0.5.0"
+serde_json = "1.0.79"
+tokio = "1.17.0"

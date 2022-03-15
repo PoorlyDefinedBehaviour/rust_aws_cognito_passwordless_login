@@ -1,0 +1,15 @@
+[package]
+name = "aws_cognito_otp"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+
+members = [
+  "create_auth_challenge",
+  "define_auth_challenge",
+  "verify_auth_challenge"
+]
+
