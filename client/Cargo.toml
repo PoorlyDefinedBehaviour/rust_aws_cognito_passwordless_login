@@ -1,18 +1,12 @@
 [package]
-name = "create_auth_challenge"
+name = "client"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-lambda_runtime = "0.5.0"
-serde_json = "1.0.79"
-tokio = "1.17.0"
 rusoto_core = "0.47.0"
 rusoto_cognito_idp = "0.47.0"
-rusoto_ses = "0.47.0"
-aws_lambda_events = "0.6.1"
 openssl = { version = "0.10", features = ["vendored"] }
-tracing = "0.1.19"
-log = { path = "../log" }
+uuid = { version = "0.8.2", features = ["v4"] }

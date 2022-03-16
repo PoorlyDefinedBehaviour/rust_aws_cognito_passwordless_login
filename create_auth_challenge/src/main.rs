@@ -1,13 +1,16 @@
 use aws_lambda_events::event::cognito::CognitoEventUserPoolsCreateAuthChallenge;
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use rusoto_ses::{Body, Content, Destination, Message, SendEmailRequest, Ses, SesClient};
+use tracing::{info, instrument};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+  log::setup();
   lambda_runtime::run(service_fn(handler)).await?;
   Ok(())
 }
 
+#[instrument(skip_all, fields(event = ?event))]
 async fn handler(
   event: LambdaEvent<CognitoEventUserPoolsCreateAuthChallenge>,
 ) -> Result<CognitoEventUserPoolsCreateAuthChallenge, Error> {
@@ -21,7 +24,7 @@ async fn handler(
     let secret_code = String::from("123456");
     let ses = SesClient::new(rusoto_core::Region::SaEast1);
     let input = SendEmailRequest {
-      source: String::from("TODO"),
+      source: std::env::var("SES_FROM_ADDRESS").expect("SES_FROM_ADDRESS is not set"),
       destination: Destination {
         bcc_addresses: None,
         cc_addresses: None,
@@ -32,7 +35,7 @@ async fn handler(
           text: None,
           html: Some(Content {
             charset: Some(String::from("UTF-8")),
-            data: String::from("Your secret login code"),
+            data: format!("Your secret login code: {}", &secret_code),
           }),
         },
         subject: Content {
@@ -42,12 +45,23 @@ async fn handler(
       },
       ..Default::default()
     };
+
+    println!("aaaaaa input {:?}", input);
+
+    info!(?user_email, "sending OTP through email");
+
     ses
       .send_email(input)
       .await
       .expect("unable to send OTP code through email");
+
     secret_code
   } else {
+    info!(
+      retry_count = event.request.session.len(),
+      ?user_email,
+      "user is retrying a challenge"
+    );
     // SAFETY: session is not empty because we checked it in the first if condition.
     let previous_challenge = event.request.session.last().unwrap().as_ref().unwrap();
     previous_challenge
