@@ -62,6 +62,11 @@ async fn handler(
     .public_challenge_parameters
     .insert(String::from("email"), user_email);
 
+  event
+    .response
+    .private_challenge_parameters
+    .insert(String::from("secret_code"), secret_code.clone());
+
   event.response.challenge_metadata = Some(secret_code);
 
   Ok(event)
