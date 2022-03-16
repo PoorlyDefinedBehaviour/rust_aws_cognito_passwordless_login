@@ -10,6 +10,7 @@ edition = "2021"
 members = [
   "create_auth_challenge",
   "define_auth_challenge",
-  "verify_auth_challenge"
+  "verify_auth_challenge",
+  "pre_signup"
 ]
 
