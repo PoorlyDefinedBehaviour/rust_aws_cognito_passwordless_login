@@ -1400,8 +1400,8 @@ checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 name = "verify_auth_challenge"
 version = "0.1.0"
 dependencies = [
+ "aws_lambda_events",
  "lambda_runtime",
- "serde_json",
  "tokio",
 ]
 
