@@ -211,8 +211,8 @@ dependencies = [
 name = "define_auth_challenge"
 version = "0.1.0"
 dependencies = [
+ "aws_lambda_events",
  "lambda_runtime",
- "serde_json",
  "tokio",
 ]
 
