@@ -21,13 +21,13 @@ async fn handler(
     .get("secret_code")
     .unwrap();
 
-  event.response.answer_correct = match &event.request.challenge_answer {
+  event.response.answer_correct = Some(match &event.request.challenge_answer {
     None => false,
     Some(answer) => match answer.as_str() {
       None => false,
       Some(s) => s == expected_secret_code,
     },
-  };
+  });
 
   info!(answer_correct = event.response.answer_correct);
 
