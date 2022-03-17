@@ -5,7 +5,7 @@ use tracing_subscriber::Registry;
 pub fn setup() {
   std::env::set_var(
     "RUST_LOG",
-    std::env::var("RUST_LOG").unwrap_or_else(|_| format!("{}=trace", env!("CARGO_PKG_NAME"))),
+    format!("{}=trace", env!("CARGO_PKG_NAME")),
   );
 
   let (non_blocking_writer, _guard) = tracing_appender::non_blocking(std::io::stdout());
