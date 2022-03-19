@@ -18,12 +18,12 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
       "Principal": {
         "Service": "lambda.amazonaws.com"
       },
-      "Effect": "Allow",
+      "Effect": "Allow"
     },
     {
       "Effect": "Allow",
       "Action": [
-        "logs:CreateLogGroup",
+        "logs:CreateLogGroup"
       ],
       "Resource": "arn:aws:logs:${var.region}:${var.account_id}:*"
     },
