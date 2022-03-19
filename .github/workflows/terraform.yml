@@ -26,7 +26,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Setup Terraform variables
-        working-directory: ./terraform
         id: vars
         run: |-
           cat > pipeline.auto.tfvars <<EOF
