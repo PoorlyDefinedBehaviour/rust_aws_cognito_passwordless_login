@@ -1,5 +1,7 @@
 name: "Terraform"
 
+if: github.repository_owner == 'poorlydefinedbehaviour'
+
 on:
   push:
     branches:
