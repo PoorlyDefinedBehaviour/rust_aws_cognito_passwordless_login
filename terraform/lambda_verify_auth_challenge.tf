@@ -41,6 +41,19 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
         "s3:GetObject"
       ],
       "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/cognito_verify_auth_challenge_lambda"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cognito-idp.amazonaws.com"
+      },
+      "Action": "lambda:InvokeFunction",
+      "Resource": "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_verify_auth_challenge_function_name}",
+      "Condition": {
+        "ArnLike": {
+          "AWS:SourceArn": ${aws_cognito_user_pool.cognito_user_pool.arn}
+        }
+      }
     }
   ]
 }
