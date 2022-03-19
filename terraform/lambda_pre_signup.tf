@@ -40,7 +40,12 @@ resource "aws_iam_role" "cognito_pre_signup_role" {
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/cognito_pre_signup_lambda"
+      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/cognito_pre_signup_lambda",
+      "Condition": {
+        "StringEquals": {
+          "s3:ResourceAccount": ${var.account_id}
+        }
+      }
     },
     {
       "Effect": "Allow",

@@ -40,7 +40,12 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/cognito_verify_auth_challenge_lambda"
+      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/cognito_verify_auth_challenge_lambda",
+      "Condition": {
+        "StringEquals": {
+          "s3:ResourceAccount": ${var.account_id}
+        }
+      }
     },
     {
       "Effect": "Allow",
