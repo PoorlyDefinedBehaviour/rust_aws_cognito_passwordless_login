@@ -10,16 +10,25 @@ resource "aws_iam_role" "cognito_create_auth_challenge_role" {
   name = "cognito_create_auth_challenge_role"
 
   assume_role_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow"
+      }
+    ]
+  }
+  EOF
+
+  inline_policy {
+    policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow"
-    },
     {
       "Effect": "Allow",
       "Action": [
@@ -70,6 +79,7 @@ resource "aws_iam_role" "cognito_create_auth_challenge_role" {
   ]
 }
 EOF
+  }
 }
 
 resource "aws_lambda_function" "cognito_create_auth_challenge" {
