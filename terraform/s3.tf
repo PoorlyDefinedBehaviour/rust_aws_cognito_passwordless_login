@@ -16,3 +16,11 @@ resource "aws_s3_bucket_versioning" "cognito_passwordless_signin_lambda_deploys_
     status = "Enabled"
   }
 }
+
+resource "aws_s3_bucket_public_access_block" "this" {
+  bucket                  = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
