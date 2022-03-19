@@ -52,7 +52,7 @@ resource "aws_iam_role" "cognito_create_auth_challenge_role" {
       "Action": [
         "ses:SendEmail"
       ],
-      "Resource": !${aws_ses_email_identity.ses_email_identity.arn}!
+      "Resource": "${aws_ses_email_identity.ses_email_identity.arn}"
     },
     {
       "Effect": "Allow",
