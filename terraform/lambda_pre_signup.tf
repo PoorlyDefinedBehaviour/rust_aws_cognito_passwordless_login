@@ -10,7 +10,7 @@ resource "aws_iam_role" "cognito_pre_signup_role" {
   name = "cognito_pre_signup_role"
 
   assume_role_policy = <<EOF
-  {
+{
     "Version": "2012-10-17",
     "Statement": [
       {

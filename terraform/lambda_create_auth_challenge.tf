@@ -10,7 +10,7 @@ resource "aws_iam_role" "cognito_create_auth_challenge_role" {
   name = "cognito_create_auth_challenge_role"
 
   assume_role_policy = <<EOF
-  {
+{
     "Version": "2012-10-17",
     "Statement": [
       {
