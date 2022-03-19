@@ -68,8 +68,8 @@ EOF
 resource "aws_lambda_function" "cognito_pre_signup" {
   function_name     = var.cognito_pre_signup_function_name
   role              = aws_iam_role.cognito_pre_signup_role.arn
-  s3_bucket         = "lambda_deploys"
-  s3_key            = "cognito_pre_signup_lambda"
+  s3_bucket         = var.cognito_passwordless_signin_lambda_deploys_bucket_name
+  s3_key            = var.cognito_pre_signup_function_name
   s3_object_version = "latest"
   handler           = "bootstrap"
   runtime           = "provided.al2"

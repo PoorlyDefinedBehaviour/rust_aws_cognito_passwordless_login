@@ -75,8 +75,8 @@ EOF
 resource "aws_lambda_function" "cognito_create_auth_challenge" {
   function_name     = var.cognito_create_auth_challenge_function_name
   role              = aws_iam_role.cognito_create_auth_challenge_role.arn
-  s3_bucket         = "lambda_deploys"
-  s3_key            = "cognito_create_auth_challenge_lambda"
+  s3_bucket         = var.cognito_passwordless_signin_lambda_deploys_bucket_name
+  s3_key            = var.cognito_create_auth_challenge_function_name
   s3_object_version = "latest"
   handler           = "bootstrap"
   runtime           = "provided.al2"
