@@ -1,7 +1,5 @@
 name: "Terraform"
 
-if: github.repository_owner == 'PoorlyDefinedBehaviour'
-
 on:
   push:
     branches:
@@ -15,6 +13,7 @@ defaults:
 jobs:
   terraform:
     name: "Terraform"
+    if: ${{github.actor}} == 'PoorlyDefinedBehaviour'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
