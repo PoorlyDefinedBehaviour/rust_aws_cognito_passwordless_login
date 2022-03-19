@@ -1,6 +1,6 @@
 name: "Terraform"
 
-if: github.repository_owner == 'poorlydefinedbehaviour'
+if: github.repository_owner == 'PoorlyDefinedBehaviour'
 
 on:
   push:
