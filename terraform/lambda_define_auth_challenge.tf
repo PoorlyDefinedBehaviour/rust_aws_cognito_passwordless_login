@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_group" "cognito_define_auth_challenge_log_group" {
 resource "aws_iam_role" "cognito_define_auth_challenge_role" {
   name = "cognito_define_auth_challenge_role"
 
-  assume_role_policy = <<EOF
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
