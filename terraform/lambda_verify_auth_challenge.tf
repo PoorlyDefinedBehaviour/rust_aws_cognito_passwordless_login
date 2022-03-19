@@ -31,7 +31,7 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
       "Effect": "Allow",
       "Action": [
         "logs:CreateLogStream",
-        "logs:PutLogEvents",
+        "logs:PutLogEvents"
       ],
       "Resource": "arn:aws:logs:${var.region}:${var.account_id}:log-group:${aws_cloudwatch_log_group.cognito_verify_auth_challenge_log_group.name}:*"
     },
@@ -43,7 +43,7 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
       "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/${var.cognito_verify_auth_challenge_function_name}",
       "Condition": {
         "StringEquals": {
-          "s3:ResourceAccount": ${var.account_id}
+          "s3:ResourceAccount": "${var.account_id}"
         }
       }
     },
@@ -56,7 +56,7 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
       "Resource": "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_verify_auth_challenge_function_name}",
       "Condition": {
         "ArnLike": {
-          "AWS:SourceArn": ${aws_cognito_user_pool.cognito_user_pool.arn}
+          "AWS:SourceArn": "${aws_cognito_user_pool.cognito_user_pool.arn}"
         }
       }
     }
