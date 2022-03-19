@@ -56,7 +56,7 @@ resource "aws_iam_role" "cognito_define_auth_challenge_role" {
       "Resource": "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_verify_auth_challenge_function_name}",
       "Condition": {
         "ArnLike": {
-          "AWS:SourceArn": "${aws_cognito_user_pool.cognito_user_pool.arn}"
+          "AWS:SourceArn": ${aws_cognito_user_pool.cognito_user_pool.arn}
         }
       }
     }
