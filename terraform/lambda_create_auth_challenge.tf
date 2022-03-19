@@ -7,7 +7,7 @@ resource "aws_cloudwatch_log_group" "cognito_create_auth_challenge_log_group" {
 }
 
 resource "aws_iam_role" "cognito_create_auth_challenge_role" {
-  name = "iam_for_lambda"
+  name = "cognito_create_auth_challenge_role"
 
   assume_role_policy = <<EOF
 {

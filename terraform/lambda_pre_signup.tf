@@ -7,7 +7,7 @@ resource "aws_cloudwatch_log_group" "cognito_pre_signup_log_group" {
 }
 
 resource "aws_iam_role" "cognito_pre_signup_role" {
-  name = "iam_for_lambda"
+  name = "cognito_pre_signup_role"
 
   assume_role_policy = <<EOF
 {
