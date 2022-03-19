@@ -7,19 +7,27 @@ resource "aws_cloudwatch_log_group" "cognito_verify_auth_challenge_log_group" {
 }
 
 resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
-  name = "cognito_verify_auth_challenge_role"
+  name               = "cognito_verify_auth_challenge_role"
+  assume_role_policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": "lambda.amazonaws.com"
+        },
+        "Effect": "Allow"
+      }
+    ]
+  }
+  EOF
 
-  policy = <<EOF
+  inline_policy {
+    policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow"
-    },
     {
       "Effect": "Allow",
       "Action": [
@@ -63,6 +71,7 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
   ]
 }
 EOF
+  }
 }
 
 resource "aws_lambda_function" "cognito_verify_auth_challenge" {
