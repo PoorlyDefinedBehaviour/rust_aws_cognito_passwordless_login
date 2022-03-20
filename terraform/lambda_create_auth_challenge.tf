@@ -85,7 +85,7 @@ EOF
 resource "aws_s3_bucket_object" "cognito_create_auth_challenge_s3_bucket_object" {
   bucket = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
   key    = var.cognito_create_auth_challenge_function_name
-  source = "./stubs/lambda_stub.zip"
+  source = "./stubs/lambda.zip"
 }
 
 resource "aws_lambda_function" "cognito_create_auth_challenge" {
@@ -93,7 +93,7 @@ resource "aws_lambda_function" "cognito_create_auth_challenge" {
   role              = aws_iam_role.cognito_create_auth_challenge_role.arn
   s3_bucket         = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.bucket
   s3_key            = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.key
-  s3_object_version = a ws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.version_id
+  s3_object_version = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.version_id
   handler           = "bootstrap"
   runtime           = "provided.al2"
 }
