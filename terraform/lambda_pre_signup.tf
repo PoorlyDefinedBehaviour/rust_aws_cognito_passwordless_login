@@ -84,9 +84,9 @@ resource "aws_s3_bucket_object" "cognito_pre_signup_lambda_s3_bucket_object" {
 resource "aws_lambda_function" "cognito_pre_signup" {
   function_name     = var.cognito_pre_signup_function_name
   role              = aws_iam_role.cognito_pre_signup_role.arn
-  s3_bucket         = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
-  s3_key            = var.cognito_pre_signup_function_name
-  s3_object_version = aws_s3_bucket_object.cognito_pre_signup_lambda_s3_bucket_object.id
+  s3_bucket         = aws_s3_bucket_object.cognito_pre_signup_lambda_s3_bucket_object.bucket
+  s3_key            = aws_s3_bucket_object.cognito_pre_signup_lambda_s3_bucket_object.key
+  s3_object_version = aws_s3_bucket_object.cognito_pre_signup_lambda_s3_bucket_object.version_id
   handler           = "bootstrap"
   runtime           = "provided.al2"
 }
