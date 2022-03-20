@@ -78,7 +78,7 @@ EOF
 resource "aws_s3_bucket_object" "cognito_pre_signup_lambda_s3_bucket_object" {
   bucket = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
   key    = var.cognito_pre_signup_function_name
-  source = "./stubs/lambda.zip"
+  source = "./stubs/lambda_stub.zip"
 }
 
 resource "aws_lambda_function" "cognito_pre_signup" {
