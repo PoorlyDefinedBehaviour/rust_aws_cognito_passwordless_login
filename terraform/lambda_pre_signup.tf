@@ -64,8 +64,8 @@ EOF
 }
 
 resource "aws_lambda_function" "cognito_pre_signup" {
-  function_name     = var.cognito_pre_signup_function_name
-  role              = aws_iam_role.cognito_pre_signup_role.arn
-  handler           = "bootstrap"
-  runtime           = "provided.al2"
+  function_name = var.cognito_pre_signup_function_name
+  role          = aws_iam_role.cognito_pre_signup_role.arn
+  handler       = "bootstrap"
+  runtime       = "provided.al2"
 }
