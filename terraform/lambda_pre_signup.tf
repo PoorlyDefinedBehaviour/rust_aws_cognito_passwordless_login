@@ -46,6 +46,18 @@ resource "aws_iam_role" "cognito_pre_signup_role" {
     },
     {
       "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/${var.cognito_verify_auth_challenge_function_name}",
+      "Condition": {
+        "StringEquals": {
+          "s3:ResourceAccount": "${var.account_id}"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
       "Principal": {
         "Service": "cognito-idp.amazonaws.com"
       },
@@ -63,9 +75,18 @@ EOF
   }
 }
 
+resource "aws_s3_bucket_object" "cognito_pre_signup_lambda_s3_bucket_object" {
+  bucket  = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
+  key     = var.cognito_pre_signup_function_name
+  content = "TODO"
+}
+
 resource "aws_lambda_function" "cognito_pre_signup" {
-  function_name = var.cognito_pre_signup_function_name
-  role          = aws_iam_role.cognito_pre_signup_role.arn
-  handler       = "bootstrap"
-  runtime       = "provided.al2"
+  function_name     = var.cognito_pre_signup_function_name
+  role              = aws_iam_role.cognito_pre_signup_role.arn
+  s3_bucket         = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
+  s3_key            = var.cognito_pre_signup_function_name
+  s3_object_version = aws_s3_bucket_object.cognito_pre_signup_lambda_s3_bucket_object.id
+  handler           = "bootstrap"
+  runtime           = "provided.al2"
 }
