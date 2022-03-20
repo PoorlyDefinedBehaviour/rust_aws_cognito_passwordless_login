@@ -85,7 +85,7 @@ EOF
 resource "aws_s3_bucket_object" "cognito_create_auth_challenge_s3_bucket_object" {
   bucket = aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.bucket
   key    = "${var.cognito_create_auth_challenge_function_name}.zip"
-  source = "./stubs/lambda.zip"
+  source = "./stubs/lambda_stub.zip"
 }
 
 resource "aws_lambda_function" "cognito_create_auth_challenge" {
