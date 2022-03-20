@@ -3,6 +3,5 @@
 bootstrap.zip
 bootstrap
 zips
-*.zip
 dev.md
 .terraform/
