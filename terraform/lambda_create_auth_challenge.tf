@@ -93,7 +93,7 @@ resource "aws_lambda_function" "cognito_create_auth_challenge" {
   role              = aws_iam_role.cognito_create_auth_challenge_role.arn
   s3_bucket         = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.bucket
   s3_key            = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.key
-  s3_object_version = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.version_id
+  s3_object_version = a ws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.version_id
   handler           = "bootstrap"
   runtime           = "provided.al2"
 }
