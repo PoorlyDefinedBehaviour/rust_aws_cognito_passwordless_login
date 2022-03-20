@@ -46,18 +46,6 @@ resource "aws_iam_role" "cognito_define_auth_challenge_role" {
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": "${aws_s3_bucket.cognito_passwordless_signin_lambda_deploys.arn}/${var.cognito_verify_auth_challenge_function_name}",
-      "Condition": {
-        "StringEquals": {
-          "s3:ResourceAccount": "${var.account_id}"
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
       "Principal": {
         "Service": "cognito-idp.amazonaws.com"
       },
@@ -76,11 +64,8 @@ EOF
 }
 
 resource "aws_lambda_function" "cognito_define_auth_challenge" {
-  function_name     = var.cognito_define_auth_challenge_function_name
-  role              = aws_iam_role.cognito_define_auth_challenge_role.arn
-  s3_bucket         = var.cognito_passwordless_signin_lambda_deploys_bucket_name
-  s3_key            = var.cognito_define_auth_challenge_function_name
-  s3_object_version = "latest"
-  handler           = "bootstrap"
-  runtime           = "provided.al2"
+  function_name = var.cognito_define_auth_challenge_function_name
+  role          = aws_iam_role.cognito_define_auth_challenge_role.arn
+  handler       = "bootstrap"
+  runtime       = "provided.al2"
 }
