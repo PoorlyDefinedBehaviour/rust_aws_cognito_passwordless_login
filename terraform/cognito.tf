@@ -7,3 +7,16 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
     verify_auth_challenge_response = "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_verify_auth_challenge_function_name}"
   }
 }
+
+resource "aws_cognito_user_pool_client" "passwordless_cognito_user_pool_client" {
+  name                                 = "passwordless-client"
+  user_pool_id                         = aws_cognito_user_pool.cognito_user_pool.id
+  allowed_oauth_flows_user_pool_client = false
+  allowed_oauth_scopes                 = ["email"]
+  enable_token_revocation              = true
+  explicit_auth_flows                  = ["CUSTOM_AUTH_FLOW_ONLY"]
+  generate_secret                      = false
+  prevent_user_existence_errors        = "ENABLED"
+  read_attributes                      = ["email"]
+  supported_identity_providers         = ["aws_cognito_identity_provider"]
+}
