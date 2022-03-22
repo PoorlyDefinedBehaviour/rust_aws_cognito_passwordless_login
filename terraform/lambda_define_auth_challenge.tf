@@ -55,19 +55,6 @@ resource "aws_iam_role" "cognito_define_auth_challenge_role" {
           "s3:ResourceAccount": "${var.account_id}"
         }
       }
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "cognito-idp.amazonaws.com"
-      },
-      "Action": "lambda:InvokeFunction",
-      "Resource": "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_verify_auth_challenge_function_name}",
-      "Condition": {
-        "ArnLike": {
-          "AWS:SourceArn": "${aws_cognito_user_pool.cognito_user_pool.arn}"
-        }
-      }
     }
   ]
 }
@@ -89,4 +76,13 @@ resource "aws_lambda_function" "cognito_define_auth_challenge" {
   s3_object_version = aws_s3_bucket_object.cognito_define_auth_challenge_s3_bucket_object.version_id
   handler           = "bootstrap"
   runtime           = "provided.al2"
+}
+
+
+resource "aws_lambda_permission" "cognito_define_auth_challenge_allow_cognito" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.cognito_define_auth_challenge.function_name
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.cognito_user_pool.arn
 }
