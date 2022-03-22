@@ -18,4 +18,5 @@ resource "aws_cognito_user_pool_client" "passwordless_cognito_user_pool_client" 
   prevent_user_existence_errors        = "ENABLED"
   read_attributes                      = ["email"]
   case_sensitive                       = false
+  alias_attributes                     = ["email", "username"]
 }
