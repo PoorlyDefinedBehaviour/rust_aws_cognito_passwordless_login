@@ -5,7 +5,6 @@ members = [
   "define_auth_challenge",
   "verify_auth_challenge",
   "pre_signup",
-  "client",
   "log"
 ]
 
