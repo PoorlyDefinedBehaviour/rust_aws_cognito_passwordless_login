@@ -23,9 +23,12 @@ resource "aws_iam_role" "cognito_define_auth_challenge_role" {
     ]
   }
   EOF
+}
 
-  inline_policy {
-    policy = <<EOF
+resource "aws_iam_role_policy" "cognito_define_auth_challenge_role_policy" {
+  name   = "cognito_define_auth_challenge_role_policy"
+  role   = aws_iam_role.cognito_define_auth_challenge_role.name
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -59,7 +62,6 @@ resource "aws_iam_role" "cognito_define_auth_challenge_role" {
   ]
 }
 EOF
-  }
 }
 
 resource "aws_s3_bucket_object" "cognito_define_auth_challenge_s3_bucket_object" {
