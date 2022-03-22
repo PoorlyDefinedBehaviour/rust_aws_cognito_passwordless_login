@@ -1,6 +1,8 @@
 resource "aws_cognito_user_pool" "cognito_user_pool" {
-  name                = "cognito-passwordless-user-pool"
-  case_sensitive      = false
+  name = "cognito-passwordless-user-pool"
+  username_configuration {
+    case_sensitive = false
+  }
   username_attributes = ["email", "username"]
 
   lambda_config {
