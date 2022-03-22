@@ -26,7 +26,7 @@ resource "aws_iam_role" "cognito_verify_auth_challenge_role" {
 
 resource "aws_iam_role_policy" "cognito_verify_auth_challenge_role_policy" {
   name   = "cognito_verify_auth_challenge_role_policy"
-  role   = aws_iam_role.cognito_verify_auth_challenge.name
+  role   = aws_iam_role.cognito_verify_auth_challenge_role.name
   policy = <<EOF
 {
   "Version": "2012-10-17",
