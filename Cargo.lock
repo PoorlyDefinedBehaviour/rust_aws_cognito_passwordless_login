@@ -156,9 +156,12 @@ dependencies = [
 name = "client"
 version = "0.1.0"
 dependencies = [
+ "log 0.1.0",
  "openssl",
  "rusoto_cognito_idp",
  "rusoto_core",
+ "tracing",
+ "tracing-subscriber",
  "uuid",
 ]
 

@@ -4,7 +4,7 @@ use tracing::{info, instrument};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-  log::setup();
+  let _guard = log::setup();
   lambda_runtime::run(service_fn(handler)).await?;
   Ok(())
 }

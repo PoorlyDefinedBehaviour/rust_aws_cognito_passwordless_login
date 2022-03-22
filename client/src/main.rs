@@ -1,18 +1,17 @@
-use rusoto_cognito_idp::{
-  AttributeType, CognitoIdentityProvider, CognitoIdentityProviderClient, SignUpRequest,
-};
-use uuid::Uuid;
+use tracing::info;
 
 fn main() {
-  let client = CognitoIdentityProviderClient::new(rusoto_core::Region::SaEast1);
+  let _guard = log::setup();
+  /*
+  // std::env::set_var("RUST_LOG", format!("{}=trace", env!("CARGO_PKG_NAME")));
+  tracing_subscriber::fmt()
+    .with_max_level(tracing::Level::INFO)
+    // this needs to be set to false, otherwise ANSI color codes will
+    // show up in a confusing manner in CloudWatch logs.
+    .with_ansi(false)
+    // disabling time is handy because CloudWatch will add the ingestion time.
+    .without_time()
+    .init();*/
 
-  client.sign_up(SignUpRequest {
-    username: String::from("brunotj2015@hotmail.com"),
-    password: Uuid::new_v4().to_string(),
-    user_attributes: Some(vec![AttributeType {
-      name: String::from("email"),
-      value: Some(String::from("brunotj2015@hotmail.com")),
-    }]),
-    ..Default::default()
-  });
+  info!("here")
 }
