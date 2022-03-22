@@ -1,5 +1,8 @@
 resource "aws_cognito_user_pool" "cognito_user_pool" {
-  name = "cognito-passwordless-user-pool"
+  name             = "cognito-passwordless-user-pool"
+  case_sensitive   = false
+  alias_attributes = ["email", "username"]
+
   lambda_config {
     pre_sign_up                    = "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_pre_signup_function_name}"
     define_auth_challenge          = "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_define_auth_challenge_function_name}"
@@ -17,6 +20,4 @@ resource "aws_cognito_user_pool_client" "passwordless_cognito_user_pool_client" 
   generate_secret                      = false
   prevent_user_existence_errors        = "ENABLED"
   read_attributes                      = ["email"]
-  case_sensitive                       = false
-  alias_attributes                     = ["email", "username"]
 }
