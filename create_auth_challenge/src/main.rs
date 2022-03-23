@@ -1,7 +1,7 @@
 use aws_lambda_events::event::cognito::CognitoEventUserPoolsCreateAuthChallenge;
 use lambda_runtime::{service_fn, Error, LambdaEvent};
 use rusoto_ses::{Body, Content, Destination, Message, SendEmailRequest, Ses, SesClient};
-use tracing::{info, instrument};
+use tracing::info;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -10,7 +10,6 @@ async fn main() -> Result<(), Error> {
   Ok(())
 }
 
-#[instrument(skip_all, fields(event = ?event))]
 async fn handler(
   event: LambdaEvent<CognitoEventUserPoolsCreateAuthChallenge>,
 ) -> Result<CognitoEventUserPoolsCreateAuthChallenge, Error> {
@@ -46,14 +45,14 @@ async fn handler(
       ..Default::default()
     };
 
-    println!("aaaaaa input {:?}", input);
-
     info!(?user_email, "sending OTP through email");
 
     ses
       .send_email(input)
       .await
       .expect("unable to send OTP code through email");
+
+    info!("OTP code sent through email");
 
     secret_code
   } else {

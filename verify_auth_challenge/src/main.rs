@@ -1,6 +1,6 @@
 use aws_lambda_events::event::cognito::CognitoEventUserPoolsVerifyAuthChallenge;
 use lambda_runtime::{service_fn, Error, LambdaEvent};
-use tracing::{info, instrument};
+use tracing::info;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -9,7 +9,6 @@ async fn main() -> Result<(), Error> {
   Ok(())
 }
 
-#[instrument(skip_all, fields(event = ?event))]
 async fn handler(
   event: LambdaEvent<CognitoEventUserPoolsVerifyAuthChallenge>,
 ) -> Result<CognitoEventUserPoolsVerifyAuthChallenge, Error> {
