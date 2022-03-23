@@ -3,7 +3,7 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
   username_configuration {
     case_sensitive = false
   }
-  username_attributes = ["email"]
+  username_attributes = ["email", "phone_number"]
 
   lambda_config {
     pre_sign_up                    = "arn:aws:lambda:${var.region}:${var.account_id}:function:${var.cognito_pre_signup_function_name}"
