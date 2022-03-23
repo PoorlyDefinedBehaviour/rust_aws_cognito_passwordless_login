@@ -22,8 +22,9 @@ async fn handler(
     // for the first time.
     let secret_code = String::from("123456");
     let ses = SesClient::new(rusoto_core::Region::SaEast1);
+    let source = std::env::var("SES_FROM_ADDRESS").expect("SES_FROM_ADDRESS is not set");
     let input = SendEmailRequest {
-      source: std::env::var("SES_FROM_ADDRESS").expect("SES_FROM_ADDRESS is not set"),
+      source: source.clone(),
       destination: Destination {
         bcc_addresses: None,
         cc_addresses: None,
@@ -45,7 +46,7 @@ async fn handler(
       ..Default::default()
     };
 
-    info!(?user_email, "sending OTP through email");
+    info!(?user_email, ?source, "sending OTP through email");
 
     ses
       .send_email(input)
