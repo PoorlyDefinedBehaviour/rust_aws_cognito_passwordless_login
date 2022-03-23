@@ -16,8 +16,8 @@ pub fn setup() {
     // show up in a confusing manner in CloudWatch logs.
     .with_ansi(false)
     // disabling time is handy because CloudWatch will add the ingestion time.
-    .without_time();
-  //       .init();
+    .without_time()
+    .init();
 
   // let (non_blocking_writer, worker_guard) = tracing_appender::non_blocking(std::io::stdout());
 
