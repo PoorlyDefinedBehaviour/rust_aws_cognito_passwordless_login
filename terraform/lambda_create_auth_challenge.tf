@@ -64,7 +64,7 @@ resource "aws_iam_role_policy" "cognito_create_auth_challenge_role_policy" {
       "Action": [
         "ses:SendEmail"
       ],
-      "Resource": "${aws_ses_email_identity.ses_email_identity.arn}"
+      "Resource": "*"
     }
   ]
 }
