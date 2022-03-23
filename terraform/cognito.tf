@@ -4,7 +4,6 @@ resource "aws_cognito_user_pool" "cognito_user_pool" {
     case_sensitive = false
   }
 
-  username_attributes = ["email", "phone_number"]
   schema {
     name                     = "email"
     attribute_data_type      = "string"
