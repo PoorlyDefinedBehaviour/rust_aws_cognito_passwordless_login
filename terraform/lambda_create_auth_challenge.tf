@@ -85,6 +85,11 @@ resource "aws_lambda_function" "cognito_create_auth_challenge" {
   s3_object_version = aws_s3_bucket_object.cognito_create_auth_challenge_s3_bucket_object.version_id
   handler           = "bootstrap"
   runtime           = "provided.al2"
+  environment {
+    variables = {
+      SES_FROM_ADDRESS = var.ses_from_address
+    }
+  }
 }
 
 
